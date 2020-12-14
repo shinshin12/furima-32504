@@ -10,7 +10,7 @@ users テーブル
 | name                 | string      |  null: false|
 | kana_surname         | string      |  null: false|
 | kana_name            | string      |  null: false|
-| birthday             | date        |  null: false| Active Hash使用
+| birthday_id             | date        |  null: false| Active Hash使用
 
 Association
 
