@@ -1,5 +1,4 @@
 # README
-
 users テーブル
 
 | column      |  type       |  options    |
@@ -25,7 +24,7 @@ itemsテーブル
 | explanation | text          |  null: false|
 | item_price  | integer       |  null: false|
 | seller      | string        |  null: false|
-| user        |references     |  null: false, foreign_key: true|
+| user        |references     |  null: false, foreign_key: true｜
 
 Association
 
