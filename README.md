@@ -14,7 +14,7 @@ users テーブル
 
 Association
 
-- has_many :purchase
+- has_many :purchases
 - has_many :items
 - has_many :comments
 
