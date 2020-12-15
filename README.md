@@ -10,10 +10,11 @@ users テーブル
 | name                 | string      |  null: false|
 | kana_surname         | string      |  null: false|
 | kana_name            | string      |  null: false|
-| birthday             | date        |  null: false| Active Hash使用
+| birthday             | date        |  null: false| 
 
 Association
 
+- has_many :purchase
 - has_many :items
 - has_many :comments
 
@@ -26,7 +27,7 @@ itemsテーブル
 | category_id        | integer       |  null: false|
 | state_id           | integer       |  null: false|
 | shipping_method_id | integer       |  null: false|
-| area_id            | integer       |  null: false|
+| profecture_id      | integer       |  null: false|
 | date_id            | integer       |  null: false|
 | price              | integer       |  null: false|
 | user               |references     |  null: false, foreign_key: true｜
@@ -58,16 +59,17 @@ purchaseテーブル
 | user          | references  |  null: false, foreign_key: true|
 | item          | references  |  null: false, foreign_key: true|
 
+- belongs_to :user
 - belongs_to :item
 - has_one :address
 
-addressテーブル
+addressesテーブル
 
 | column         |  type       |  options    |
 |----------------|-------------|-------------|
 |  postal_code   | string      |  null: false|
-|  prefecture_id | integer     |  null: false|  Actives Hash使用
-|  city          | text        |  null: false|
+|  prefecture_id | integer     |  null: false|  
+|  city          | string        |  null: false|
 |  house_number  | string      |  null: false|
 |  building_name | string      |             |
 |  phone_number  | string      |  null: false|
