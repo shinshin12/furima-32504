@@ -5,13 +5,14 @@ FactoryBot.define do
       end
 
 
-password            {Faker::Internet.password(min_length: 6)}           
+password            {"aaa000"} 
+    password_confirmation     {password}         
 email               {Faker::Internet.free_email}           
-nickname            {Faker::Name.name} 
-surname             {person.first.kanji}       
-name                {person.last.kanji}         
-kana_surname        {person.first.katakana}          
-kana_name           {person.last.katakana}         
-birthday            {Faker::Date.backword}           
+nickname            {"satou"} 
+surname             {"佐藤"}       
+name                {"孝宏"}         
+kana_surname        {"サトウ"}          
+kana_name           {"タカヒロ"}         
+birthday            {Faker::Date.birthday}           
    end
 end
