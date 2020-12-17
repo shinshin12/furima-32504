@@ -97,20 +97,20 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Surname can't be blank")
     end
     it 'surnameが全角でなければ登録できない' do
-       @user.kana_surname = "ｱｲｳｴ"
+       @user.surname = "ｱｲｳｴ"
        @user.valid?
-      expect(@user.errors.full_messages).to include("Kana surname 全角文字を使用してください")
+      expect(@user.errors.full_messages).to include("surname 全角文字を使用してください")
     end
 
     it "nameが空では登録できない" do  
       @user.name = ""
       @user.valid?
-      expect(@user.errors.full_messages).to include("Name can't be blank", "Name 全角文字を使用してください")
+      expect(@user.errors.full_messages).to include("Name can't be blank")
     end
     it 'nameが全角でなければ登録できない' do
-       @user.kana_surname = "ｱｲｳｴ"
+       @user.name = "ｱｲｳｴ"
        @user.valid?
-      expect(@user.errors.full_messages).to include("Kana surname 全角文字を使用してください")
+       expect(@user.errors.full_messages).to include("Name 全角文字を使用してください")
     end
 
     it "kana_surnameが空では登録できない" do  
@@ -119,20 +119,20 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Kana surname can't be blank")
     end
     it 'kana_surnameが全角でなければ登録できない' do
-       @user.kana_surname = ""
+       @user.kana_surname = "ｱｲｳｴ"
        @user.valid?
-       expect(@user.errors.full_messages).to include("Kana surname 全角文字を使用してください")
+       expect(@user.errors.full_messages).to include("Kana surname 全角カタカナのみで入力して下さい")
     end
 
     it "kana_nameが空では登録できない" do
       @user.kana_name = ""
       @user.valid?
-      expect(@user.errors.full_messages).to include("Kana name can't be blank", "Kana name 全角文字を使用してください")
+      expect(@user.errors.full_messages).to include("Kana name can't be blank")
     end
     it 'kana_nameが全角でなければ登録できない' do
        @user.kana_surname = "ｱｲｳｴ"
        @user.valid?
-      expect(@user.errors.full_messages).to include("Kana surname 全角文字を使用してください")
+      expect(@user.errors.full_messages).to include("Kana name 全角カタカナのみで入力して下さい" )
     end
     
     it "birthdayが空では登録できない" do 

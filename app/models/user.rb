@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   
   with_options presence: true do
-  validates :password, length: {minimum: 6, message: "Must be more than 6 characters"}
+  validates :password
   validates :email
   validates :nickname
   validates :birthday
