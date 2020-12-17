@@ -64,15 +64,17 @@ RSpec.describe User, type: :model do
          @user.valid?
          expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
     end
-    it 'passwordに英数字両方含まれていなければ登録できない' do
-         @user.password = "aaaaaa"
-         @user.valid?
-         expect(@user.errors.full_messages).to include("Passwordには英字と数字の両方を含めて設定してください")
-    end
     it "passwordが存在してもpassword_confirmationが空では登録できない" do
       @user.password_confirmation = ""
       @user.valid?
       expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+    end
+    it "重複したemailが存在する場合登録できない" do
+      @user.save
+      another_user = FactoryBot.build(:user)
+      another_user.email = @user.email
+      another_user.valid?
+      expect(another_user.errors.full_messages).to include("Email has already been taken")
     end
     it "surnameが空では登録できない" do
       @user.surname = ""
@@ -88,12 +90,12 @@ RSpec.describe User, type: :model do
     it "nameが空では登録できない" do  
       @user.name = ""
       @user.valid?
-      expect(@user.errors.full_messages).to include("Name can't be blank")
+      expect(@user.errors.full_messages).to include("Name can't be blank", "Name 全角文字を使用してください")
     end
     it 'nameが全角でなければ登録できない' do
        @user.kana_surname = "ｱｲｳｴ"
        @user.valid?
-       expect(@user.errors.full_messages).to include("Name 全角文字を使用してください")
+      expect(@user.errors.full_messages).to include("Kana surname 全角文字を使用してください")
     end
 
     it "kana_surnameが空では登録できない" do  
@@ -102,7 +104,7 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Kana surname can't be blank")
     end
     it 'kana_surnameが全角でなければ登録できない' do
-       @user.kana_surname = "ｱｲｳｴ"
+       @user.kana_surname = ""
        @user.valid?
        expect(@user.errors.full_messages).to include("Kana surname 全角文字を使用してください")
     end
@@ -110,13 +112,12 @@ RSpec.describe User, type: :model do
     it "kana_nameが空では登録できない" do
       @user.kana_name = ""
       @user.valid?
-      expect(@user.errors.full_messages).to include("kana name can't be blank")
+      expect(@user.errors.full_messages).to include("Kana name can't be blank", "Kana name 全角文字を使用してください")
     end
     it 'kana_nameが全角でなければ登録できない' do
        @user.kana_surname = "ｱｲｳｴ"
        @user.valid?
-       binding.pry
-       expect(@user.errors.full_messages).to include("Kana name 全角文字を使用してください")
+      expect(@user.errors.full_messages).to include("Kana surname 全角文字を使用してください")
     end
     
     it "birthdayが空では登録できない" do 
