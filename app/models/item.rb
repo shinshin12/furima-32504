@@ -17,9 +17,11 @@ class Item < ApplicationRecord
  end
  validates :price, numericality: true, inclusion: {in: 300..9999999, message:"は対象の値段外です"}, presence: true, format: {with: /\A[0-9]+\z/, message:"を半角数字で入力してください"} 
 
-validates :category_id, presence: true,	numericality: { other_than: 1 }
-validates :state_id, presence: true, numericality: { other_than: 1 }
+ with_options presence: true, numericality: {other_than: 1} do
+validates :category_id
+validates :state_id
 validates :shipping_method_id, presence: true, numericality: { other_than: 1 }	
 validates :prefecture_id, presence: true,	numericality: { other_than: 1 }
 validates :day_time_id, presence: true, numericality: { other_than: 1 }
+ end
 end
