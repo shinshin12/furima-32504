@@ -11,7 +11,7 @@ class Item < ApplicationRecord
 
 
  with_options presence: true do
-  validates :item_name		
+  validates :price		
   validates :explanation
   validates :image
   validates :price, numericality: true, inclusion: {in: 300..9999999, message:"は対象の値段外です"}, format: {with: /\A[0-9]+\z/, message:"を半角数字で入力してください"} 
