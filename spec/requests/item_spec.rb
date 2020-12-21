@@ -44,7 +44,7 @@ RSpec.describe Item, type: :model do
        expect(@item.errors.full_messages).to include("Price は対象の値段外です")
     end
     it "販売価格が299円以下では登録できない" do
-       @item.price = 200
+       @item.price = 299
        @item.valid?
        expect(@item.errors.full_messages).to include("Price は対象の値段外です")
     end
