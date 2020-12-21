@@ -12,9 +12,10 @@ class Item < ApplicationRecord
 
  with_options presence: true do
   validates :item_name		
-  validates :explanation	
-  validates :price
+  validates :explanation
+  validates :image
  end
+ validates :price, numericality: {with: /\A[0-9]+\z/, message:"を半角数字で入力してください"}, presence: true, length: {maximum: 7, message: "値が大きすぎます"}
 
 validates :category_id,	numericality: { other_than: 1 }
 validates :state_id, numericality: { other_than: 1 }
