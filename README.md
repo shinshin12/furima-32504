@@ -28,7 +28,7 @@ itemsテーブル
 | state_id           | integer       |  null: false|
 | shipping_method_id | integer       |  null: false|
 | profecture_id      | integer       |  null: false|
-| date_id            | integer       |  null: false|
+| day_time_id        | integer       |  null: false|
 | price              | integer       |  null: false|
 | user               |references     |  null: false, foreign_key: true｜
 
