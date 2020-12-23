@@ -12,7 +12,6 @@ class Item < ApplicationRecord
 
 
  with_options presence: true do
-  validates :item_name
   validates :price		
   validates :explanation
   validates :image
