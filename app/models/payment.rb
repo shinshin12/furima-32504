@@ -1,6 +1,6 @@
 class Payment
   include ActiveModel::Model
-  attr_accessor :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number, :user_id, :item_id
+  attr_accessor :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number, :user_id, :item_id :token
 
   with_options presence: true do
   validates :postal_code
@@ -9,6 +9,7 @@ class Payment
   validates :house_number
   validates :building_name
   validates :phone_number
+  validates :token
   end
 
   def save
