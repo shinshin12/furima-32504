@@ -3,11 +3,11 @@ class PaymentForm
   attr_accessor :postal_code, :prefecture_id, :city, :house_number, :building_name, :phone_number, :user_id, :item_id, :token
 
   with_options presence: true do
-  validates :postal_code
-  validates :prefecture_id
+  validates :postal_code, format: {with: /\d{3}-\d{4}/, message:"郵便番号を正しく記入してください"}
+  validates :prefecture_id, numericality: {other_than: 1}
   validates :city
   validates :house_number
-  validates :phone_number
+  validates :phone_number, format: {with: /\A[0-9]+\z/, message:"を半角数字で入力してください"}
   validates :token
   end
 
