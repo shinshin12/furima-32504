@@ -1,13 +1,16 @@
 require 'rails_helper'
 RSpec.describe PaymentForm, type: :model do
+  let(:@payment_form) {FactoryBot.create(:payment_form)}
   before do
-    @user = FactoryBot.build(:user)
-    @item = FactoryBot.build(:item)
-    @payment_form = FactoryBot.build(:payment_form, user_id: @user.id, item_id: @item.id)
+    @payment_form = FactoryBot.build(:payment_form)
   end
   describe '購入機能' do
     context '購入機能がうまくいく時' do
      it 'tokenと,postal_code,phone_number,prefecture_id,city,house_numberが存在すれば登録できる' do
+         expect(@payment_form).to be_valid
+     end
+     it "建物名が空でも購入できること" do
+         @payment_form.building_name = ""
          expect(@payment_form).to be_valid
      end
     end
@@ -28,6 +31,11 @@ RSpec.describe PaymentForm, type: :model do
         @payment_form.valid?
         expect(@payment_form.errors.full_messages).to include("Postal code を正しく記入してください")
     end  
+      it "郵便番号にハイフンが無い場合は購入できない" do
+        @payment_form.postal_code = 1234
+        @payment_form.valid?
+        expect(@payment_form.errors.full_messages).to include("Postal code を正しく記入してください")
+      end
     it "郵便番号が全角だとうまくいかない" do
       @payment_form.postal_code = "１１１"
       @payment_form.valid?
@@ -41,8 +49,18 @@ RSpec.describe PaymentForm, type: :model do
      it "電話番号が全角だとうまくいかない" do
       @payment_form.phone_number = "１１１"
       @payment_form.valid?
-      expect(@payment_form.errors.full_messages).to include("Phone number を半角数字で入力してください")
+      expect(@payment_form.errors.full_messages).to include("Phone number を正しく記入してください")
    end
+     it "電話番号にハイフンが入っている場合は購入できない" do
+      @payment_form.phone_number = "090-1231-1234"
+      @payment_form.valid?
+      expect(@payment_form.errors.full_messages).to include("Phone number を正しく記入してください")
+     end
+     it "電話番号が11桁以上記述されている場合は購入できない" do
+      @payment_form.phone_number = "09012311234"
+      @payment_form.valid?
+      expect(@payment_form.errors.full_messages).to include("Phone number を正しく記入してください")
+     end
      it "都道府県が空だとうまくいかない" do
       @payment_form.prefecture_id = ""
       @payment_form.valid?

@@ -1,14 +1,13 @@
 class PurchasesController < ApplicationController
+  before_action :move_auto, only: [:index, :create]
   before_action :move_action, only: [:index]
   before_action :authenticate_user!, only: [:index]
   before_action :move_to_index, only:[:index]
   def index
-    @item = Item.find(params[:item_id])
     @payment_form = PaymentForm.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @payment_form = PaymentForm.new(purchase_params)
     if @payment_form.valid?
       pay_item
@@ -32,14 +31,15 @@ class PurchasesController < ApplicationController
         currency: 'jpy'                 
       )
   end
+  def move_auto
+    @item = Item.find(params[:item_id])
+  end
   def move_to_index
-     @item = Item.find(params[:item_id])
     if @item.purchase.present?
       redirect_to root_path
     end
   end
   def move_action
-    @item = Item.find(params[:item_id])
     if user_signed_in? && current_user.id == @item.user_id
       redirect_to root_path
     end
